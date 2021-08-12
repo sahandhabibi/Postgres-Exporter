@@ -1,0 +1,13 @@
+version: '3'
+services:
+  postgresql-exporter:
+    image: wrouesnel/postgres_exporter
+    ports:
+      - 9187:9187
+    restart: always
+    command:
+      - --extend.query-path=/var/postgres/queries.yaml
+    environment:
+      - "DATA_SOURCE_NAME=postgresql://postgres:password@localhost:5432/postgres?sslmode=disable"
+    volumes:
+      - ./queries.yaml:/var/postgres/queries.yaml
